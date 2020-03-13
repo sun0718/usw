@@ -55,10 +55,10 @@ export default class Index extends React.Component {
     })
   }
   editRules(e){
-    var data = this.state.response
-    data.configPoints = e
+    var data = this.state.response;
+    data.configPoints = e;
     this.setState({
-      response: data
+      response: data 
     })
     console.log(data)
   }

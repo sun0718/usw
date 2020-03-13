@@ -1,0 +1,45 @@
+@import '~antd/es/style/themes/default.less';
+
+.excelImport {
+  overflow-y: auto;
+
+  .uploadTop {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    :global{
+      .ant-typography{
+        display: block ;
+        height: 2rem;
+        line-height: 2rem;
+      }
+   }
+    Button {
+      margin-right: 3rem;
+    }
+  }
+
+  .formCard {
+    display: flex;
+    align-items: center;
+
+    &>div {
+      flex: 1;
+      padding-left: 1.875rem;
+      display: flex;
+
+      .flexForm {
+        display: flex;
+        align-items: center;
+        margin-right: 1.875rem;
+
+        &>span {
+          white-space: nowrap !important;
+          margin-right: 1.5rem;
+        }
+      }
+    }
+
+
+  }
+}

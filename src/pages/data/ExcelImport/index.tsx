@@ -64,7 +64,7 @@ export default class Index extends React.Component {
   }
   insertExcel(){
     const params = {}
-    // params.updateConfig = true
+    params.updateConfig = false
     params.multipartFile = this.state.fileList[0]
     
     insertExcelApi({...params,...this.state.response}).then(res=>{

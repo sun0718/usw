@@ -9,24 +9,15 @@ export default class MyUpload extends React.Component {
   };
 
   handleChange = info => {
-    debugger
-    if (info.file.status === 'uploading') {
-      var a =  this.handleBeforeUpload(file)
-      
-    }
-    this.handleBeforeUpload(info.file)
-    let fileList = [...info.fileList];
-    fileList = fileList.slice(-1);
-    fileList = fileList.map(file => {
-      if (file.response) {
-        file.url = file.response.url;
-      }
-      return file;
-    });
-    this.setState({
-      fileList
-    });
     if (info.file.status === 'done') {
+      let fileList = [...info.fileList];
+      fileList = fileList.slice(-1);
+      fileList = fileList.map(file => {
+        if (file.response) {
+          file.url = file.response.url;
+        }
+        return file;
+      });
       this.setState({
         fileList
       });

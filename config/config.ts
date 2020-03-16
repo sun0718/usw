@@ -5,13 +5,13 @@ import proxy from './proxy';
 
 // const { PORT } = process.env;
 
-let title:string = '地下安全监测系统'
+let title: string = '地下安全监测系统'
 
 export default defineConfig({
     hash: true,
     title: title,
-    history:{
-        type:"hash"
+    history: {
+        type: "hash"
     },
     targets: {
         ie: 11,
@@ -40,13 +40,27 @@ export default defineConfig({
                         {
                             path: '/',
                             name: '首页',
-                            redirect: '/list',
+                            redirect: '/Engineering',
                         },
                         {
-                            path: '/list',
+                            path: '/Engineering',
                             name: '工程管理',
                             title: `工程管理-${title}`,
-                            component: './TableList/index',
+                            component: './Engineering/index',
+                            routes: [
+                                {
+                                    path: 'info',
+                                    name: '工程信息',
+                                    title: `工程信息-${title}`,
+                                    component: './Engineering/index',
+                                },
+                                {
+                                    path: 'instrument',
+                                    name: '仪器类型',
+                                    title: `仪器类型-${title}`,
+                                    component: './Engineering/index',
+                                }
+                            ]
                         },
                         {
                             path: '/data',

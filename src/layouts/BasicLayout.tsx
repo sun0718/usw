@@ -3,7 +3,6 @@ import React from 'react';
 import { inject, observer } from 'mobx-react'
 import { Layout, Spin } from 'antd';
 import MenuList from '../components/MenuList/index'
-import Breadcrumb from '../components/Breadcrumb/index'
 import '../pages/index.less'
 
 interface Route {
@@ -47,9 +46,10 @@ export default class BasicLayout extends React.Component<Props, States> {
     super(props)
   }
   componentWillMount() {
+    console.log(this.props)
     this.setState({
       currentRoute: this.props.location.pathname,
-      routeList: this.props.route
+      routeList: this.props.route.routes
     })
   }
 
@@ -69,11 +69,10 @@ export default class BasicLayout extends React.Component<Props, States> {
         </div> */}
         <Layout className="layout">
           <Layout.Header>
-            <MenuList menulist={this.state.routeList.routes} theme="dark" mode="horizontal" defaultSelectedKeys={[this.state.currentRoute]} />
+            <MenuList menulist={this.state.routeList} theme="dark" mode="horizontal" defaultSelectedKeys={[this.state.currentRoute]} />
             <div className="logo">LOGO</div>
           </Layout.Header>
           <Layout.Content style={{ padding: '0 50px' }}>
-            <Breadcrumb pathname={this.state.currentRoute} />
             <div className="site-layout-content">
               {/* < div > 这是mobx数据： {this.props.stores.startNum}</div > */}
               {this.props.children}

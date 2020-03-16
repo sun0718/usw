@@ -5,7 +5,7 @@ const SubMenu = Menu.SubMenu;
 import './index.less'
 
 class Index extends React.Component {
-
+  
   static defaultProps = {
     menulist: []
   }
@@ -53,6 +53,7 @@ class Index extends React.Component {
   })(this.props.menulist);
 
   render() {
+    console.log(this.props)
     return (
       <Menu {...this.props} style={{ height: '100%' }}>
         {this.createMenu}

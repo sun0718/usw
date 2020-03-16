@@ -19,7 +19,8 @@ export default class Index extends React.Component {
       startRow: 10,
       rules: [],
       fileList: [],
-      response: {}
+      response: {},
+      updateConfig: false
     }
     this.fileChange = this.fileChange.bind(this)
     this.editRules =this.editRules.bind(this)
@@ -30,17 +31,18 @@ export default class Index extends React.Component {
     this.setState({
       startRow: 10,
       fileList: uploadData.fileList,
-      response: uploadData.file.response.data
+      response: uploadData.file.response.data,
+      updateConfig: false
     })
   }
   handleInputChange(e) {
-    this.setState({ startRow: e });
+    this.setState({ startRow: e , updateConfig: true});
     this.state.response.configPoints.map(item => {
       item.icpStartRow = e
     })
   }
   handleSelectChange(e) {
-    this.setState({ rules: e });
+    this.setState({ rules: e , updateConfig: true});
     let startRuleId = this.state.response.configPoints[0].ruleId
     this.state.response.configPoints.map(item => {
       item.configRules = e.map(i => {
@@ -58,13 +60,13 @@ export default class Index extends React.Component {
     var data = this.state.response;
     data.configPoints = e;
     this.setState({
-      response: data 
+      response: data ,
+       updateConfig: true
     })
-    console.log(data)
   }
   insertExcel(){
     const params = {}
-    params.updateConfig = false
+    params.updateConfig = this.state.updateConfig;
     params.multipartFile = this.state.fileList[0]
     
     insertExcelApi({...params,...this.state.response}).then(res=>{

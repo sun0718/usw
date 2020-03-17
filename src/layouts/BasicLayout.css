@@ -1,0 +1,71 @@
+.layout {
+  height: 100vh;
+  overflow: hidden;
+}
+.layout .ant-layout-header {
+  background-color: #012C3D;
+  padding: 0.5rem 0.75rem 0.5625rem;
+}
+.layout .ant-layout-header a {
+  color: #fff;
+}
+.layout .ant-layout-header ul {
+  display: flex;
+  height: 2.9375rem;
+  margin-bottom: 0;
+}
+.layout .ant-layout-header ul li {
+  line-height: 2.9375rem;
+  z-index: 3;
+  cursor: pointer;
+  margin-right: -1rem;
+  flex-grow: 1;
+  position: relative;
+  width: 10%;
+  color: #ffffff;
+  font-size: 1rem;
+  font-family: PingFang SC;
+}
+.layout .ant-layout-header ul li.nav-active a {
+  color: red;
+}
+.layout .ant-layout-header ul li:last-child {
+  margin-right: 0;
+}
+.layout .ant-layout-header ul li.bothEnds {
+  width: 9%;
+  background-size: 100% 100%;
+}
+.layout .ant-layout-header ul li.bothEnds:first-child {
+  background-image: url(/public/trapezoid_r.png);
+}
+.layout .ant-layout-header ul li.bothEnds:last-child {
+  background-image: url(/public/trapezoid_l.png);
+}
+.layout .ant-layout-header ul li.logo {
+  position: relative;
+  width: 22%;
+  background-image: url(/public/logo.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  margin-bottom: -0.4rem;
+}
+.layout .ant-layout-header ul li.logo span.content {
+  display: inline-block;
+  font-size: 1.5rem;
+  width: 100%;
+}
+.layout .ant-layout-header ul li.clockwise {
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-image: url(/public/parallelogram_l.png);
+}
+.layout .ant-layout-header ul li.counterclockwise {
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-image: url(/public/parallelogram_r.png);
+}
+.layout .layout-content main {
+  overflow-y: auto;
+}

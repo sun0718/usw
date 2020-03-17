@@ -1,12 +1,5 @@
-.ant-menu-item,
-.ant-menu-submenu {
-  height: 100%;
-  line-height: 3.875rem;
-}
-.ant-menu-submenu-open {
-  color: #fff !important;
-}
-.ant-menu-dark .ant-menu-submenu-selected {
-  background-color: #1890ff;
-  color: #fff;
+.collapsed-btn {
+  position: absolute;
+  bottom: 1rem;
+  transform: translateX(-50%);
 }

@@ -1,65 +1,106 @@
-import React from 'react'
-import { Menu, Icon } from 'antd';
-import { Link } from 'umi';
-const SubMenu = Menu.SubMenu;
+import React, { Component } from 'react'
+import { Menu, Button } from 'antd';
+import { history } from 'umi'
+import { withRouter } from 'react-router-dom'
+
+import {
+    AppstoreOutlined,
+    MenuUnfoldOutlined,
+    MenuFoldOutlined,
+    PieChartOutlined,
+    DesktopOutlined,
+    ContainerOutlined,
+    MailOutlined,
+} from '@ant-design/icons';
+
+import { inject, observer } from 'mobx-react'
+
+const { SubMenu } = Menu;
+
 import './index.less'
 
-class Index extends React.Component {
-  
-  static defaultProps = {
-    menulist: []
-  }
-
-  createMenu = ((menuData) => {  //创建菜单
-    //let itemIndex = 0; //累计的每一项索引
-    let submenuIndex = 0; //累计的每一项展开菜单索引
-    let menu = [];
-    const create = (menuData, el) => {
-      for (let i = 0; i < menuData.length; i++) {
-        if (menuData[i].routes) {  //如果有子级菜单
-          let children = [];
-          create(menuData[i].routes, children);
-          submenuIndex++;
-          el.push(
-            <SubMenu
-              key={`sub${submenuIndex}`}
-              title={(
-                <span style={{ height: '100%', display: 'block' }}>
-                  <Icon type={menuData[i].icon} />{menuData[i].name}
-                </span>
-              )}
-            >
-              {children}
-            </SubMenu>
-          )
-        } else {   //如果没有子级菜单
-          //itemIndex++;   
-          if (menuData[i].name) {
-            el.push(
-              <Menu.Item key={menuData[i].path} title={menuData[i].name}>
-                <Link to={menuData[i].path}>
-                  {menuData[i].icon ? <Icon type={menuData[i].icon} /> : null}
-                  <span>{menuData[i].name}</span>
-                </Link>
-              </Menu.Item>
-            )
-          }
+@inject('stores')
+@observer
+class MenuList extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            collapsed: false,
+            sidebar: []
         }
-      }
+        this.menuChange.bind(this)
+        this.updateMenu.bind(this)
+    }
+    componentDidMount() {
+        this.updateMenu()
+    }
+    componentWillReceiveProps() {
+        this.updateMenu()
+    }
 
+    updateMenu() {
+        let curBasePath = this.props.stores.curBasePath;
+        let sidebar = this.props.route.find(item => item.path == curBasePath)
+        this.setState({
+            sidebar: Object.assign({}, sidebar)
+        })
+    }
+
+    menuChange = (val) => {
+        history.push(val.key)
+    }
+
+    toggleCollapsed = () => {
+        this.props.stores.increment()
     };
-    create(menuData, menu);
-    return menu;
-  })(this.props.menulist);
 
-  render() {
-    console.log(this.props)
-    return (
-      <Menu {...this.props} style={{ height: '100%' }}>
-        {this.createMenu}
-      </Menu>
-    )
-  }
+    render() {
+        return (
+            <>
+                <Button className='collapsed-btn' onClick={this.toggleCollapsed} style={{ marginBottom: 16 }}>
+                    {React.createElement(this.props.stores.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined)}
+                </Button>
+                <Menu
+                    defaultSelectedKeys={['1']}
+                    defaultOpenKeys={['sub1']}
+                    mode="inline"
+                    theme="dark"
+                >
+                    {
+                        (this.state.sidebar.routes && this.state.sidebar.routes.map(curr => {
+                            if (curr.routes && curr.routes.length > 0) {     //判断是否是有下拉选项的菜单项
+                                return (
+                                    <SubMenu
+                                        key={curr.path}
+                                        title={<span>{curr.name}</span>}
+                                    >{
+                                            curr.routes.map(item => {
+                                                if (!item.name) {
+                                                    return null
+                                                }
+                                                return (
+                                                    <Menu.Item
+                                                        key={item.path}
+                                                        onClick={this.menuChange}
+                                                    >{item.name}</Menu.Item>
+                                                )
+                                            })
+                                        }</SubMenu>
+                                )
+                            }
+                            if (!curr.name) {
+                                return
+                            }
+                            return (
+                                <Menu.Item key={curr.path} onClick={this.menuChange}>
+                                    <span>{curr.name}</span>
+                                </Menu.Item>
+                            )
+                        }))}
+                </Menu>
+            </>
+        );
+    }
 }
 
-export default Index;
+export default withRouter(MenuList)

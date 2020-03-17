@@ -2,8 +2,9 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react'
 import { Layout, Spin } from 'antd';
+import HeaderNav from '../components/HeaderNav/index'
 import MenuList from '../components/MenuList/index'
-import '../pages/index.less'
+import './BasicLayout.less'
 
 interface Route {
   path: string
@@ -46,41 +47,28 @@ export default class BasicLayout extends React.Component<Props, States> {
     super(props)
   }
   componentWillMount() {
-    console.log(this.props)
     this.setState({
-      currentRoute: this.props.location.pathname,
       routeList: this.props.route.routes
     })
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.location.pathname != this.props.location.pathname) {
-      this.setState({
-        currentRoute: nextProps.location.pathname
-      })
-    }
-  }
-
   render() {
     return (
-      <div>
-        {/* <div className='example'>
-          <Spin />
-        </div> */}
-        <Layout className="layout">
-          <Layout.Header>
-            <MenuList menulist={this.state.routeList} theme="dark" mode="horizontal" defaultSelectedKeys={[this.state.currentRoute]} />
-            <div className="logo">LOGO</div>
-          </Layout.Header>
-          <Layout.Content style={{ padding: '0 50px' }}>
+      <Layout className="layout">
+        <Layout.Header>
+          <HeaderNav navList={this.state.routeList} />
+        </Layout.Header>
+        <Layout className="layout-content">
+          <Layout.Sider style={{ width: '256px' }} trigger={null} collapsible collapsed={this.props.stores.collapsed}>
+            <MenuList route={this.state.routeList}/>
+          </Layout.Sider>
+          <Layout.Content>
             <div className="site-layout-content">
-              {/* < div > 这是mobx数据： {this.props.stores.startNum}</div > */}
-              {this.props.children}
+              {React.cloneElement(this.props.children)}
             </div>
           </Layout.Content>
-          {/* <Layout.Footer style={{ textAlign: 'center' }}>©2018 中南院信息与数字技术工程公司</Layout.Footer> */}
         </Layout>
-      </div>
+      </Layout>
     )
   }
 }

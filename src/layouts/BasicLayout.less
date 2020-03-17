@@ -1,0 +1,92 @@
+.layout {
+  height: 100vh;
+  overflow: hidden;
+
+  .ant-layout-header {
+    background-color: #012C3D;
+    padding: .5rem .75rem .5625rem;
+
+    a {
+      color: #fff;
+    }
+
+    ul {
+      display: flex;
+      height: 2.9375rem;
+      margin-bottom: 0;
+
+      li {
+        line-height: 2.9375rem;
+        z-index: 3;
+        cursor: pointer;
+        margin-right: -1rem;
+        flex-grow: 1;
+        position: relative;
+        width: 10%;
+        color: rgba(255, 255, 255, 1);
+        font-size: 1rem;
+        font-family: PingFang SC;
+
+        &.nav-active {
+          a {
+            color: red;
+          }
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        &.bothEnds {
+          width: 9%;
+          background-size: 100% 100%;
+
+          &:first-child {
+            background-image: url(/public/trapezoid_r.png);
+          }
+
+          &:last-child {
+            background-image: url(/public/trapezoid_l.png);
+          }
+        }
+
+        &.logo {
+          position: relative;
+          width: 22%;
+          background-image: url(/public/logo.png);
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 100% 100%;
+          margin-bottom: -.4rem;
+
+          span.content {
+            display: inline-block;
+            font-size: 1.5rem;
+            width: 100%;
+            // transform: translateY(-.2rem);
+          }
+        }
+
+        &.clockwise {
+          background-size: 100% 100%;
+          background-repeat: no-repeat;
+          background-image: url(/public/parallelogram_l.png);
+        }
+
+        &.counterclockwise {
+          background-size: 100% 100%;
+          background-repeat: no-repeat;
+          background-image: url(/public/parallelogram_r.png);
+        }
+      }
+    }
+  }
+
+  .layout-content {
+    aside {}
+
+    main {
+      overflow-y: auto;
+    }
+  }
+}
